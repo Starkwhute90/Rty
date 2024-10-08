@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abstract Art Generator</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="artCanvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('artCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function randomColor() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function drawRandomShapes(x, y) {
+        const shapeCount = Math.floor(Math.random() * 15) + 5; // Random number of shapes
+        for (let i = 0; i < shapeCount; i++) {
+            const size = Math.random() * 50 + 10; // Random size
+            ctx.fillStyle = randomColor();
+            ctx.beginPath();
+            ctx.arc(x + (Math.random() - 0.5) * 200, y + (Math.random() - 0.5) * 200, size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    canvas.addEventListener('click', (event) => {
+        drawRandomShapes(event.clientX, event.clientY);
+    });
+
+    // Resize canvas when the window is resized
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+
+</body>
+</html>
